@@ -82,8 +82,8 @@ def M2(robot: Robot, num_samples: int, num_neighbors: int) -> typing.Tuple[np.ar
                 graph.add_edge(i, neighborIndex, weight=distance)
         
     # Display graph
-    draw(graph, with_labels=True, node_color='lightblue', font_weight='bold')
-    plt.show() # TODO: Take this out no plt.show allowed in submission
+    #draw(graph, with_labels=True, node_color='lightblue', font_weight='bold')
+    #plt.show() # TODO: Take this out no plt.show allowed in submission
 
     ### student code start here
     
