@@ -6,9 +6,9 @@ import typing
 """
 CS4610/CS5335 - Spring 2025 - Homework 3
 
-Name:
-Email:
-With Whom you discussed the questions with:
+Name: Zachary Walker-Liang
+Email: walker-liang.z@northeastern.edu
+With Whom you discussed the questions with: Nobody yet
 """
 
 
@@ -39,9 +39,45 @@ def M3(robot: Robot, samples: np.array, G: Graph, q_start: np.array, q_goal: np.
         bool:
             Boolean denoting whether a path was found
     """
+    closestSampleToStart = findClosestNodeWithoutCollision(q_start, samples, robot)
+    closestIndexToStart = findSamplesIndexByConfig(closestSampleToStart, samples)
 
+    closestSampleToGoal = findClosestNodeWithoutCollision(q_goal, samples, robot)
+    closestIndexToGoal = findSamplesIndexByConfig(closestSampleToGoal, samples)
 
-    #student code start here
-    raise NotImplementedError
-
+    nodePath = []
+    try:
+        nodePath = shortest_path(G, closestIndexToStart, closestIndexToGoal, "weight")
+        print("Node path: ")
+        print(nodePath)
+    except:
+        print("No path found!")
+        return (np.empty(), False)
+    
+    # Construct full path
+    path = []
+    path.append(q_start)
+    for node in nodePath:
+        path.append(samples[node])
+    path.append(q_goal)
+    path_found = True
+    path = np.array(path)
+    print("Full configuration path: ")
+    print(path)
     return path, path_found
+
+# Returns configuration of closest node to specified robot configuration
+def findClosestNodeWithoutCollision(config, samples, robot) -> np.array:
+    closestSamples = sorted(samples, key=lambda s: distanceBetweenTwoConfigurations(config, s, robot))
+    for c in closestSamples:
+        if (robot.check_edge(config, c)):
+            return c
+
+
+def distanceBetweenTwoConfigurations(config1: np.ndarray, config2: np.ndarray, robot) -> float:
+    return np.linalg.norm(np.array(robot.forward_kinematics(config1)[0]) - np.array((robot.forward_kinematics(config2)[0])))
+
+def findSamplesIndexByConfig(config: np.array, samples) -> int:
+    for i in range(len(samples)):
+        if (np.array_equal(config, samples[i])):
+            return i

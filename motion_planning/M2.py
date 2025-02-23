@@ -58,21 +58,21 @@ def M2(robot: Robot, num_samples: int, num_neighbors: int) -> typing.Tuple[np.ar
         neighbors : typing.List[tuple[int, float]] = []
         jointIPosition, jointIOrientation = robot.forward_kinematics(validJointConfigurations[i])
         jointIPosition = np.array(jointIPosition)
-        print("Joint I Position: ")
-        print(jointIPosition)
+        #print("Joint I Position: ")
+        #print(jointIPosition)
         for j in range(i + 1, len(validJointConfigurations), 1):
             jointJPosition, joinJOrientation = robot.forward_kinematics(validJointConfigurations[j])
             jointJPosition = np.array(jointJPosition)
-            print("Joint J Position")
-            print(jointJPosition)
+            #print("Joint J Position")
+            #print(jointJPosition)
             distanceBetweenJointIAndJointJ = np.linalg.norm(jointJPosition - jointIPosition)
-            print("Distance between joint I and joint j")
-            print(distanceBetweenJointIAndJointJ)
+            #print("Distance between joint I and joint j")
+            #print(distanceBetweenJointIAndJointJ)
             neighbors.append((j, distanceBetweenJointIAndJointJ))
-            print("")
+            #print("")
         nearestNeighbors = sorted(neighbors, key=lambda x: x[1]) # Sort by distance
-        print("Nearest neighbors!")
-        print(nearestNeighbors)
+        #print("Nearest neighbors!")
+        #print(nearestNeighbors)
 
         # Now create edges with nearest neighbors if not in collision
         for k in range(min(num_neighbors, len(nearestNeighbors))):
