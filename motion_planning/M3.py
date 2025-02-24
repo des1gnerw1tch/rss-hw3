@@ -9,6 +9,9 @@ CS4610/CS5335 - Spring 2025 - Homework 3
 Name: Zachary Walker-Liang
 Email: walker-liang.z@northeastern.edu
 With Whom you discussed the questions with: Nobody yet
+----
+NOTE: I chose to implement this algorithm optimizing for distance in world space of the end effector, not in joint space. This way, the end-effector will move
+as little as possible. This was a design decision. In M4, I calculate distances in joint space! So the joints will move as little as possible.
 """
 
 
@@ -48,8 +51,8 @@ def M3(robot: Robot, samples: np.array, G: Graph, q_start: np.array, q_goal: np.
     nodePath = []
     try:
         nodePath = shortest_path(G, closestIndexToStart, closestIndexToGoal, "weight")
-        print("Node path: ")
-        print(nodePath)
+        #print("Node path: ")
+        #print(nodePath)
     except:
         print("No path found!")
         return (np.empty(), False)
@@ -62,8 +65,8 @@ def M3(robot: Robot, samples: np.array, G: Graph, q_start: np.array, q_goal: np.
     path.append(q_goal)
     path_found = True
     path = np.array(path)
-    print("Full configuration path: ")
-    print(path)
+    #print("Full configuration path: ")
+    #print(path)
     return path, path_found
 
 # Returns configuration of closest node to specified robot configuration
