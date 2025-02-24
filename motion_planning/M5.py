@@ -4,9 +4,9 @@ from robot import Simple_Manipulator as Robot
 """
 CS4610/CS5335 - Spring 2025 - Homework 3
 
-Name:
-Email:
-With Whom you discussed the questions with:
+Name: Zachary Walker-Liang
+Email: walker-liang.z@northeastern.edu
+With Whom you discussed the questions with: Nobody yet
 """
 
 
@@ -28,7 +28,20 @@ def M5(robot: Robot, path: np.array) -> np.array:
         waypoints may have been removed
     """
 
-    #student work start here
-    raise NotImplementedError
+    newPath = [path[0]]
+    i = 0
+    while (i < len(path) - 1):
+        nextConfigurationInOptimizedPath = path[i + 1]
+        j = len(path) - 1
+        foundShortcut = False
+        while (j > i + 1 and not foundShortcut):
+            if (robot.check_edge(path[i], path[j])): # If find a shortcut
+                nextConfigurationInOptimizedPath = path[j]
+                i = j
+                foundShortcut = True
+            j-=1
+        newPath.append(nextConfigurationInOptimizedPath)
+        if (not foundShortcut):
+            i+=1
 
-    return path
+    return np.array(newPath)

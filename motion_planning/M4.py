@@ -9,7 +9,7 @@ CS4610/CS5335 - Spring 2025 - Homework 3
 
 Name: Zachary Walker-Liang
 Email: walker-liang.z@northeastern.edu
-With Whom you discussed the questions with:
+With Whom you discussed the questions with: Nobody yet
 """
 
 
